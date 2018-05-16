@@ -1,0 +1,11 @@
+﻿.ul-chessboard{
+	list-style-type: none;
+}
+
+.ul-chessboard li{
+	background: aliceblue;
+	width : 200px;
+	height: 200px;
+    	display: inline-block;
+    	vertical-align: top;
+}
