@@ -1,14 +1,52 @@
 ﻿<!Doctype html>
 	<head>
 		<title>Static-Gallay</title>
-		<link rel="stylesheet" type="text/css" href="ul-chessboard.css">
+		<style>
+			#if{
+				position:absolute; 
+				top:0px;
+				left: 0px;
+				background: black;
+			}
+			.ghost{
+				display : inline-block;
+
+				-webkit-transition: opacity 2.1s, margin 2.1s; /* For Safari 3.1 to 6.0 */
+				-webkit-transition-timing-function: ease; /* For Safari 3.1 to 6.0 */
+    				transition:  opacity 2.1s, margin 2.1s;
+				transition-timing-function: ease;
+
+				opacity: 0.2;
+				margin: 0px;
+			}
+			.ghost:hover{
+				transition:  opacity 0.4s, margin 0.2s;
+				-webkit-transition: opacity 0.4s, margin 0.2s; /* For Safari 3.1 to 6.0 */
+				
+				opacity: 1.0;
+				margin: 15px;
+			}
+			.exclusion{
+				mix-blend-mode: exclusion;
+				color:white;
+			}
+			#logo{
+				display : inline-block;
+				font-size : 2em;
+			}
+		</style>
 	</head>
 
-	<body style="margin:0px; overflow:hidden;">
-		<header>
-			<h1> Static-Gallay </h1>
+	<body style="overflow:hidden;">
+
+		<iframe class="wrapper" id="if" src="" frameBorder="0" width="100%" height="100%" ></iframe>
+		
+		<header >
+			<a class="ghost exclusion" href="https://gimganghwi.github.io/Static-Gallary/" style="text-decoration:none">
+				<span id="logo" >Static-Gallay</span>
+			</a>
 		</header>
-		<iframe id="if" src="canvas.html" frameBorder="0" width="100%" height="100%" style="position:absolute; top:0px;"></iframe>
+
 		<footer>
 		</footer>
 	</body>
@@ -17,6 +55,11 @@
 		var hash = window.location.hash.substr(1);
 		var iframe = document.getElementById("if");
 		iframe.src = hash;
+
+		document.getElementsByTagName("BODY")[0].onresize = function () {
+ 			iframe.width = window.innerWidth;
+ 			iframe.height = window.innerHeight;
+		}
 	</script>
 
 </html>
