@@ -1,7 +1,7 @@
 ﻿<!Doctype html>
 	<head>
 		<title>Static-Gallay</title>
-		<link rel="stylesheet" type="text/css" href="ul-chessboard.css">
+		<link rel="stylesheet" type="text/css" href="css/ul-chessboard.css">
 	</head>
 	<body >
 	<div id="wrapper" style="background:white">
@@ -21,6 +21,7 @@
 	</div>
 	</body>
 	<script>
+		let base = "arts/"
 		let anchors = ["canvas", "canvas_white", "canvas_sample", "canvas_sample_fourth"];
 
 		let li = document.querySelector(".thumbnail");
@@ -30,7 +31,7 @@
 		li.remove();
 		function cloneNodeWithAnchor( el, href){
 			var clone = el.cloneNode(true);
-			clone.href += href + ".html";
+			clone.href += base + href + ".html";
 			return clone;
 		}
 
