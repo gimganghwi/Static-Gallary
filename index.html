@@ -39,28 +39,7 @@
 			</a>
 		</header>
 		<ul class="ul-chessboard">
-			<a href = "./view.html#canvas.html" style="color:inherit; text-decoration:none">
-				<li>
-					<div>
-						<img src="", alt=""/>
-					</div>
-				</li>
-			</a>
-			<a href = "./view.html#canvas_white.html" style="color:inherit; text-decoration:none">
-				<li>
-					<div>
-						<img src="", alt=""/>
-					</div>
-				</li>
-			</a>
-			<a href = "./view.html#canvas_sample.html" style="color:inherit; text-decoration:none">
-				<li>
-					<div>
-						<img src="", alt=""/>
-					</div>
-				</li>
-			</a>
-			<a href = "./view.html#canvas_sample_fourth.html" style="color:inherit; text-decoration:none">
+			<a class="thumbnail" href = "./view.html#" style="color:inherit; text-decoration:none">
 				<li>
 					<div>
 						<img src="", alt=""/>
@@ -72,4 +51,19 @@
 		</footer>
 	</div>
 	</body>
+	<script>
+		let anchors = ["canvas", "canvas_white", "canvas_sample", "canvas_sample_fourth"];
+
+		let li = document.querySelector(".thumbnail");
+		let ul = document.querySelector(".ul-chessboard");
+
+		anchors.forEach( anchor => { ul.appendChild( cloneNodeWithAnchor( li, anchor ) )  });
+		li.remove();
+		function cloneNodeWithAnchor( el, href){
+			var clone = el.cloneNode(true);
+			clone.href += href + ".html";
+			return clone;
+		}
+
+	</script>
 </html>
