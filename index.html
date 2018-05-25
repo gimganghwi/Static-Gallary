@@ -2,41 +2,10 @@
 	<head>
 		<title>Static-Gallay</title>
 		<link rel="stylesheet" type="text/css" href="ul-chessboard.css">
-		<style>
-			.ghost{
-				display : inline-block;
-
-				-webkit-transition: opacity 2.1s, margin 2.1s; /* For Safari 3.1 to 6.0 */
-				-webkit-transition-timing-function: ease; /* For Safari 3.1 to 6.0 */
-    				transition:  opacity 2.1s, margin 2.1s;
-				transition-timing-function: ease;
-
-				opacity: 0.2;
-				margin: 0px;
-			}
-			.ghost:hover{
-				transition:  opacity 0.4s, margin 0.2s;
-				-webkit-transition: opacity 0.4s, margin 0.2s; /* For Safari 3.1 to 6.0 */
-				
-				opacity: 1.0;
-				margin: 15px;
-			}
-			.exclusion{
-				mix-blend-mode: exclusion;
-				color:white;
-			}
-			#logo{
-				display : inline-block;
-				font-size : 2em;
-			}
-		</style>
 	</head>
 	<body >
 	<div id="wrapper" style="background:white">
 		<header>
-			<a class="ghost exclusion" href="https://gimganghwi.github.io/Static-Gallary/" style="text-decoration:none">
-				<span id="logo" >Static-Gallay</span>
-			</a>
 		</header>
 		<ul class="ul-chessboard">
 			<a class="thumbnail" href = "./view.html#" style="color:inherit; text-decoration:none">
@@ -64,6 +33,16 @@
 			clone.href += href + ".html";
 			return clone;
 		}
+
+		let xhttp = new XMLHttpRequest();
+		let header = document.querySelector("header");
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200 ) {
+				header.innerHTML = this.responseText;
+			}
+		}
+		xhttp.open("GET", "header.html", true);
+		xhttp.send();
 
 	</script>
 </html>
