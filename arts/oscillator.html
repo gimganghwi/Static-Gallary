@@ -1,19 +1,27 @@
 ﻿<!Doctype html>
 	<body style="margin:0px; overflow:hidden;">
-		<canvas id="img-canvas" style="background:white; border:1px solid gray"></canvas>
+		<canvas id="img-canvas" style="background:black; border:1px solid gray"></canvas>
 		<script>
 			var canvas = document.getElementById("img-canvas");
 			var ctx = canvas.getContext("2d");
 
 			var audioCtx = new (window.AudioContext || window.webkitAudioContext) ();
 
-			setInterval( startOsillator, 1500 );
+			setInterval( wave, 1500 );
 			window.onresize = setCanvasFitToWindow;
 			setCanvasFitToWindow();
+			canvas.width = window.innerWidth;
+    		canvas.height = window.innerHeight;
 
-			function startOsillator(){
+    		function wave(){
+    			let frequency = 440 + 880 * Math.random();
+    			startOsillator(frequency);
+    			drawSineWave(( frequency-440)/88 );
+    		}
+
+			function startOsillator(frequency){
 				var oscillator = audioCtx.createOscillator();
-				oscillator.frequency.value = 440 + 440 * Math.random();
+				oscillator.frequency.value = frequency;
 				oscillator.type = 'sine';
 
 				var now = audioCtx.currentTime;
@@ -29,9 +37,50 @@
 				gain.connect(audioCtx.destination);
 			}
 
+			var verticalCenter = window.innerHeight / 2;
+			var amplitude = verticalCenter / 3;
+			var freq;
+
+			var x, y;
+			var drawFrame = 344;
+
+			var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
+			gradient.addColorStop("0","crimson");
+			gradient.addColorStop("0.2","darkOrange");
+			gradient.addColorStop("0.4","magenta");
+			gradient.addColorStop("0.6","DarkTurquoise");
+			gradient.addColorStop("0.8","magenta");
+			gradient.addColorStop("1.0","pink");
+
+			ctx.strokeStyle = gradient;
+
+			function drawSineWave(frequency){
+				x = 0;
+				y = verticalCenter;
+				freq = frequency;
+
+				ctx.lineWidth = 0.2;
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.beginPath();
+				ctx.moveTo(x, y);
+				requestAnimationFrame(updateScreen);
+			}
+
+			function updateScreen(){
+				y = Math.sin( freq * 2*(x/window.innerWidth) * Math.PI) * amplitude
+				y = -y + verticalCenter;
+				ctx.lineTo(x, y);
+				ctx.stroke();
+
+				if ( x < window.innerWidth ){
+					x += window.innerWidth/drawFrame;
+					requestAnimationFrame(updateScreen);
+				}
+			}
+
 			function setCanvasFitToWindow(){
-				canvas.width = window.innerWidth;
-    			canvas.height = window.innerHeight;
+				canvas.style.width = window.innerWidth + "px";
+				canvas.style.height = window.innerHeight + "px";
 			}
 		</script>
 	</body>
